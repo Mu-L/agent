@@ -6,14 +6,48 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/concepts/clustering/
 canonical: https://grafana.com/docs/agent/latest/flow/concepts/clustering/
 description: Learn about Grafana Agent clustering concepts
-labels:
-  stage: beta
 menuTitle: Clustering
-title: Clustering (beta)
+title: Clustering
 weight: 500
+refs:
+  prometheus.operator.servicemonitors:
+    - pattern: /docs/agent/
+      destination: /docs/agent/<AGENT_VERSION>/flow/reference/components/prometheus.operator.servicemonitors/#clustering-beta
+    - pattern: /docs/grafana-cloud/
+      destination: /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.operator.servicemonitors/#clustering-beta
+  prometheus.scrape:
+    - pattern: /docs/agent/
+      destination: /docs/agent/<AGENT_VERSION>/flow/reference/components/prometheus.scrape/#clustering-beta
+    - pattern: /docs/grafana-cloud/
+      destination: /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.scrape/#clustering-beta
+  debugging:
+    - pattern: /docs/agent/
+      destination: /docs/agent/<AGENT_VERSION>/flow/tasks/debug/#debugging-clustering-issues
+    - pattern: /docs/grafana-cloud/
+      destination: /docs/grafana-cloud/send-data/agent/flow/tasks/debug/#debugging-clustering-issues
+  pyroscope.scrape:
+    - pattern: /docs/agent/
+      destination: /docs/agent/<AGENT_VERSION>/flow/reference/components/pyroscope.scrape/#clustering-beta
+    - pattern: /docs/grafana-cloud/
+      destination: /docs/grafana-cloud/send-data/agent/flow/reference/components/pyroscope.scrape/#clustering-beta
+  clustering-page:
+    - pattern: /docs/agent/
+      destination: /docs/agent/<AGENT_VERSION>/flow/tasks/debug/#clustering-page
+    - pattern: /docs/grafana-cloud/
+      destination: /docs/grafana-cloud/send-data/agent/flow/tasks/debug/#clustering-page
+  run:
+    - pattern: /docs/agent/
+      destination: /docs/agent/<AGENT_VERSION>/flow/reference/cli/run/#clustering
+    - pattern: /docs/grafana-cloud/
+      destination: /docs/grafana-cloud/send-data/agent/flow/reference/cli/run/#clustering
+  prometheus.operator.podmonitors:
+    - pattern: /docs/agent/
+      destination: /docs/agent/<AGENT_VERSION>/flow/reference/components/prometheus.operator.podmonitors/#clustering-beta
+    - pattern: /docs/grafana-cloud/
+      destination: /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.operator.podmonitors/#clustering-beta
 ---
 
-# Clustering (beta)
+# Clustering
 
 Clustering enables a fleet of {{< param "PRODUCT_ROOT_NAME" >}}s to work together for workload distribution and high availability.
 It helps create horizontally scalable deployments with minimal resource and operational overhead.
@@ -23,7 +57,7 @@ To achieve this, {{< param "PRODUCT_NAME" >}} makes use of an eventually consist
 
 The behavior of a standalone, non-clustered {{< param "PRODUCT_ROOT_NAME" >}} is the same as if it were a single-node cluster.
 
-You configure clustering by passing `cluster` command-line flags to the [run][] command.
+You configure clustering by passing `cluster` command-line flags to the [run](ref:run) command.
 
 ## Use cases
 
@@ -55,29 +89,13 @@ It also provides resiliency because targets are automatically picked up by one o
 
 Refer to component reference documentation to discover whether it supports clustering, such as:
 
-- [prometheus.scrape][]
-- [pyroscope.scrape][]
-- [prometheus.operator.podmonitors][]
-- [prometheus.operator.servicemonitors][]
+- [prometheus.scrape](ref:prometheus.scrape)
+- [pyroscope.scrape](ref:pyroscope.scrape)
+- [prometheus.operator.podmonitors](ref:prometheus.operator.podmonitors)
+- [prometheus.operator.servicemonitors](ref:prometheus.operator.servicemonitors)
 
 ## Cluster monitoring and troubleshooting
 
-You can use the {{< param "PRODUCT_NAME" >}} UI [clustering page][] to monitor your cluster status.
-Refer to [Debugging clustering issues][debugging] for additional troubleshooting information.
+You can use the {{< param "PRODUCT_NAME" >}} UI [clustering page](ref:clustering-page) to monitor your cluster status.
+Refer to [Debugging clustering issues](ref:debugging) for additional troubleshooting information.
 
-{{% docs/reference %}}
-[run]: "/docs/agent/ -> /docs/agent/<AGENT_VERSION>/flow/reference/cli/run.md#clustering-beta"
-[run]: "/docs/grafana-cloud/ -> /docs/grafana-cloud/send-data/agent/flow/reference/cli/run.md#clustering-beta"
-[prometheus.scrape]: "/docs/agent/ -> /docs/agent/<AGENT_VERSION>/flow/reference/components/prometheus.scrape.md#clustering-beta"
-[prometheus.scrape]: "/docs/grafana-cloud/ -> /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.scrape.md#clustering-beta"
-[pyroscope.scrape]: "/docs/agent/ -> /docs/agent/<AGENT_VERSION>/flow/reference/components/pyroscope.scrape.md#clustering-beta"
-[pyroscope.scrape]: "/docs/grafana-cloud/ -> /docs/grafana-cloud/send-data/agent/flow/reference/components/pyroscope.scrape.md#clustering-beta"
-[prometheus.operator.podmonitors]: "/docs/agent/ -> /docs/agent/<AGENT_VERSION>/flow/reference/components/prometheus.operator.podmonitors.md#clustering-beta"
-[prometheus.operator.podmonitors]: "/docs/grafana-cloud/ -> /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.operator.podmonitors.md#clustering-beta"
-[prometheus.operator.servicemonitors]: "/docs/agent/ -> /docs/agent/<AGENT_VERSION>/flow/reference/components/prometheus.operator.servicemonitors.md#clustering-beta"
-[prometheus.operator.servicemonitors]: "/docs/grafana-cloud/ -> /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.operator.servicemonitors.md#clustering-beta"
-[clustering page]: "/docs/agent/ -> /docs/agent/<AGENT_VERSION>/flow/tasks/debug.md#clustering-page"
-[clustering page]: "/docs/grafana-cloud/ -> /docs/grafana-cloud/send-data/agent/flow/tasks/debug.md#clustering-page"
-[debugging]: "/docs/agent/ -> /docs/agent/<AGENT_VERSION>/flow/tasks/debug.md#debugging-clustering-issues"
-[debugging]: "/docs/grafana-cloud/ -> /docs/grafana-cloud/send-data/agent/flow/tasks/debug.md#debugging-clustering-issues"
-{{% /docs/reference %}}

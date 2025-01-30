@@ -66,15 +66,15 @@ text_file      | [text_file][]      | Configures the text_file collector.      |
 [dfsr]: #dfsr-block
 [exchange]: #exchange-block
 [iis]: #iis-block
-[logical_disk]: #logicaldisk-block
+[logical_disk]: #logical_disk-block
 [msmq]: #msmq-block
 [mssql]: #mssql-block
 [network]: #network-block
 [process]: #process-block
-[scheduled_task]: #scheduledtask-block
+[scheduled_task]: #scheduled_task-block
 [service]: #service-block
 [smtp]: #smtp-block
-[text_file]: #textfile-block
+[text_file]: #text_file-block
 
 ### dfsr block
 
@@ -172,13 +172,18 @@ For a server name to be included, it must match the regular expression specified
 
 ### service block
 
-Name           | Type     | Description                                           | Default | Required
----------------|----------|-------------------------------------------------------|---------|---------
-`use_api`      | `string` | Use API calls to collect service data instead of WMI. | `false` | no
-`where_clause` | `string` | WQL 'where' clause to use in WMI metrics query.       | `""`    | no
+Name           | Type     | Description                                                 | Default | Required
+---------------|----------|-------------------------------------------------------------|---------|---------
+`use_api`      | `string` | Use the Windows API to collect service data instead of WMI. | `false` | no
+`where_clause` | `string` | WQL 'where' clause to use in WMI metrics query.             | `""`    | no
 
 The `where_clause` argument can be used to limit the response to the services you specify, reducing the size of the response.
 If `use_api` is enabled, 'where_clause' won't be effective.
+
+The Windows API is more performant than WMI. Set `use_api` to `true` in situations when the WMI takes too long to get the service information.
+Setting `use_api` to `true` does have a few disadvantages compared to using WMI:
+* WMI queries in `where_clause` won't work.
+* The `status` field of the service is not available. You can use the `state` property to retrieve status information. This property provides the same information, but it is formatted differently.
 
 
 ### smtp block
@@ -258,14 +263,14 @@ Name     | Description | Enabled by default
 [mscluster_resourcegroup](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.mscluster_resourcegroup.md) | MSCluster ResourceGroup metrics |
 [msmq](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.msmq.md) | MSMQ queues |
 [mssql](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.mssql.md) | [SQL Server Performance Objects](https://docs.microsoft.com/en-us/sql/relational-databases/performance-monitor/use-sql-server-objects#SQLServerPOs) metrics  |
-[netframework_clrexceptions](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrexceptions.md) | .NET Framework CLR Exceptions |
-[netframework_clrinterop](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrinterop.md) | .NET Framework Interop Metrics |
-[netframework_clrjit](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrjit.md) | .NET Framework JIT metrics |
-[netframework_clrloading](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrloading.md) | .NET Framework CLR Loading metrics |
-[netframework_clrlocksandthreads](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrlocksandthreads.md) | .NET Framework locks and metrics threads |
-[netframework_clrmemory](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrmemory.md) |  .NET Framework Memory metrics |
-[netframework_clrremoting](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrremoting.md) | .NET Framework Remoting metrics |
-[netframework_clrsecurity](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework_clrsecurity.md) | .NET Framework Security Check metrics |
+[netframework_clrexceptions](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-exceptions) | .NET Framework CLR Exceptions |
+[netframework_clrinterop](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-interop) | .NET Framework Interop Metrics |
+[netframework_clrjit](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-jit) | .NET Framework JIT metrics |
+[netframework_clrloading](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-loading) | .NET Framework CLR Loading metrics |
+[netframework_clrlocksandthreads](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-locks-and-threads) | .NET Framework locks and metrics threads |
+[netframework_clrmemory](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-memory) |  .NET Framework Memory metrics |
+[netframework_clrremoting](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-remoting) | .NET Framework Remoting metrics |
+[netframework_clrsecurity](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.netframework.md#clr-security) | .NET Framework Security Check metrics |
 [net](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.net.md) | Network interface I/O | &#10003;
 [os](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.os.md) | OS metrics (memory, processes, users) | &#10003;
 [physical_disk](https://github.com/prometheus-community/windows_exporter/blob/master/docs/collector.physical_disk.md) | Physical disks | &#10003;
@@ -329,7 +334,7 @@ Replace the following:
 
 `prometheus.exporter.windows` has exports that can be consumed by the following components:
 
-- Components that consume [Targets]({{< relref "../compatibility/#targets-consumers" >}})
+- Components that consume [Targets](../../compatibility/#targets-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

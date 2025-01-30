@@ -63,7 +63,13 @@ Section "install"
   Pop $0
 
   # Configure the out path and copy files to it.
-  SetOutPath "$INSTDIR"
+  IfFileExists "$INSTDIR" Exists NotExists
+  NotExists:
+    SetOutPath "$INSTDIR"
+    Call SetFolderPermissions
+  Exists:
+    SetOutPath "$INSTDIR"
+  
   File "..\..\..\dist.temp\grafana-agent-flow-windows-amd64.exe"
   File "..\..\..\dist.temp\grafana-agent-service-windows-amd64.exe"
   File "logo.ico"
@@ -91,7 +97,7 @@ Section "install"
   Call InitializeRegistry
 
   # Create the service.
-  nsExec::ExecToLog 'sc create "Grafana Agent Flow" start= delayed-auto binpath= "$INSTDIR\grafana-agent-service-windows-amd64.exe"'
+  nsExec::ExecToLog 'sc create "Grafana Agent Flow" start= delayed-auto binpath= "\"$INSTDIR\grafana-agent-service-windows-amd64.exe\""'
   Pop $0
 
   # Start the service.
@@ -109,6 +115,14 @@ Function CreateConfig
     Return
   CreateNewConfig:
     File "config.river"
+
+    # Set permissions on the config file
+    AccessControl::DisableFileInheritance "$INSTDIR\config.river"
+    AccessControl::SetFileOwner "$INSTDIR\config.river" "Administrators"
+    AccessControl::ClearOnFile  "$INSTDIR\config.river" "Administrators" "FullAccess"
+    AccessControl::SetOnFile    "$INSTDIR\config.river" "SYSTEM" "FullAccess"
+    AccessControl::GrantOnFile  "$INSTDIR\config.river" "Everyone" "ListDirectory"
+    AccessControl::GrantOnFile  "$INSTDIR\config.river" "Everyone" "ReadAttributes"
     Return
 FunctionEnd
 
@@ -164,6 +178,18 @@ Function InitializeRegistry
   Return
 FunctionEnd
 
+Function SetFolderPermissions
+    # Set permissions on the install directory
+    AccessControl::DisableFileInheritance $INSTDIR
+    AccessControl::SetFileOwner $INSTDIR "Administrators"
+    AccessControl::ClearOnFile  $INSTDIR "Administrators" "FullAccess"
+    AccessControl::SetOnFile    $INSTDIR "SYSTEM" "FullAccess"
+    AccessControl::GrantOnFile  $INSTDIR "Everyone" "ListDirectory"
+    AccessControl::GrantOnFile  $INSTDIR "Everyone" "GenericExecute"
+    AccessControl::GrantOnFile  $INSTDIR "Everyone" "GenericRead"
+    AccessControl::GrantOnFile  $INSTDIR "Everyone" "ReadAttributes"
+FunctionEnd
+
 # Automatically called when uninstalling.
 Function un.onInit
   SetShellVarContext all
@@ -192,7 +218,10 @@ Section "uninstall"
   RMDir /r "$INSTDIR"                # Install directory.
   RMDir /r "$APPDATA\${APPNAME}"     # Application data.
 
-  # Remove service and uninstaller information from the registry.
-  DeleteRegKey HKLM "Software\Grafana\Grafana Agent Flow"
+  # Remove service and uninstaller information from the registry. Note that the
+  # service settings are stored in the 64-bit registry (so we use /reg:64),
+  # while the uninstaller information is stored in the 32-bit registry.
+  nsExec::ExecToLog 'Reg.exe delete "HKLM\SOFTWARE\Grafana\Grafana Agent Flow"  /reg:64 /f'
+  Pop $0
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
 SectionEnd

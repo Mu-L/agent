@@ -164,7 +164,7 @@ The following arguments are supported:
 Name | Type | Description | Default | Required
 ---- | ---- | ----------- | ------- | --------
 `endpoint` | `string` | `host:port` to listen for traffic on. | `"0.0.0.0:14268"` | no
-`max_request_body_size` | `string` | Maximum request body size the server will allow. No limit when unset. | | no
+`max_request_body_size` | `string`   | Maximum request body size the server will allow.                   | `20MiB`          | no
 `include_metadata` | `boolean` | Propagate incoming connection metadata to downstream consumers. | | no
 
 ### cors block
@@ -284,7 +284,7 @@ otelcol.exporter.otlp "default" {
 
 `otelcol.receiver.jaeger` can accept arguments from the following components:
 
-- Components that export [OpenTelemetry `otelcol.Consumer`]({{< relref "../compatibility/#opentelemetry-otelcolconsumer-exporters" >}})
+- Components that export [OpenTelemetry `otelcol.Consumer`](../../compatibility/#opentelemetry-otelcolconsumer-exporters)
 
 
 {{< admonition type="note" >}}
