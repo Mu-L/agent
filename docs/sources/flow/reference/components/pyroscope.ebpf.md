@@ -56,6 +56,8 @@ values.
 | `collect_kernel_profile`  | `bool`                   | A flag to enable/disable collection of kernelspace profiles                         | true    | no       |
 | `demangle`                | `string`                 | C++ demangle mode. Available options are: `none`, `simplified`, `templates`, `full` | `none`  | no       |
 | `python_enabled`          | `bool`                   | A flag to enable/disable python profiling                                           | true    | no       |
+| `symbols_map_size`        | `int`                    | The size of eBPF symbols map                                                        | 16384   | no       |
+| `pid_map_size`            | `int`                    | The size of eBPF PID map                                                            | 2048    | no       |
 
 ## Exported fields
 
@@ -298,8 +300,8 @@ pyroscope.ebpf "default" {
 
 `pyroscope.ebpf` can accept arguments from the following components:
 
-- Components that export [Targets]({{< relref "../compatibility/#targets-exporters" >}})
-- Components that export [Pyroscope `ProfilesReceiver`]({{< relref "../compatibility/#pyroscope-profilesreceiver-exporters" >}})
+- Components that export [Targets](../../compatibility/#targets-exporters)
+- Components that export [Pyroscope `ProfilesReceiver`](../../compatibility/#pyroscope-profilesreceiver-exporters)
 
 
 {{< admonition type="note" >}}
