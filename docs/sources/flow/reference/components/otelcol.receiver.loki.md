@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/otelcol.receiver.loki/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.receiver.loki/
 description: Learn about otelcol.receiver.loki
-labels:
-  stage: beta
 title: otelcol.receiver.loki
 ---
 
@@ -106,11 +104,11 @@ otelcol.exporter.otlp "default" {
 
 `otelcol.receiver.loki` can accept arguments from the following components:
 
-- Components that export [OpenTelemetry `otelcol.Consumer`]({{< relref "../compatibility/#opentelemetry-otelcolconsumer-exporters" >}})
+- Components that export [OpenTelemetry `otelcol.Consumer`](../../compatibility/#opentelemetry-otelcolconsumer-exporters)
 
 `otelcol.receiver.loki` has exports that can be consumed by the following components:
 
-- Components that consume [Loki `LogsReceiver`]({{< relref "../compatibility/#loki-logsreceiver-consumers" >}})
+- Components that consume [Loki `LogsReceiver`](../../compatibility/#loki-logsreceiver-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

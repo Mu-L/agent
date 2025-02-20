@@ -16,7 +16,7 @@ Our Helm charts require some version updates as well.
 
    1. Copy the content of the last CRDs into helm-charts.
 
-      Copy the contents from agent repo `production/operator/crds/` to replace the contents of helm-charts repo `charts/agent-operator/crds`
+      Copy the contents from agent repo `operations/agent-static-operator/crds` to replace the contents of helm-charts repo `charts/agent-operator/crds`
 
    2. Update references of agent-operator app version in helm-charts pointing to release version.
 
@@ -30,7 +30,7 @@ Our Helm charts require some version updates as well.
 
 4. Create a branch from `main` for [grafana/agent](https://github.com/grafana/agent).
 
-5. Update the helm chart code in `$agentRepo/operations/helm`:
+5. Update the helm chart code in `operations/helm/charts/grafana-agent`:
 
    1. Update `Chart.yaml` with the new helm version and app version.
    2. Update `CHANGELOG.md` with a new section for the helm version.

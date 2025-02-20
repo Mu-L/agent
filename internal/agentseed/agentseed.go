@@ -11,7 +11,7 @@ import (
 
 	"github.com/go-kit/log"
 	"github.com/google/uuid"
-	"github.com/grafana/agent/pkg/flow/logging/level"
+	"github.com/grafana/agent/internal/flow/logging/level"
 	"github.com/prometheus/common/version"
 )
 
@@ -113,9 +113,9 @@ func readSeedFile(path string, logger log.Logger) (*AgentSeed, error) {
 		level.Error(logger).Log("msg", "Decoding seed file", "err", err)
 		return nil, err
 	}
-
 	if seed.UID == "" {
 		level.Error(logger).Log("msg", "Seed file has empty uid")
+		return nil, err
 	}
 	return seed, nil
 }

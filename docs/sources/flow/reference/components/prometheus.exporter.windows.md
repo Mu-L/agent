@@ -172,13 +172,18 @@ For a server name to be included, it must match the regular expression specified
 
 ### service block
 
-Name           | Type     | Description                                           | Default | Required
----------------|----------|-------------------------------------------------------|---------|---------
-`use_api`      | `string` | Use API calls to collect service data instead of WMI. | `false` | no
-`where_clause` | `string` | WQL 'where' clause to use in WMI metrics query.       | `""`    | no
+Name           | Type     | Description                                                 | Default | Required
+---------------|----------|-------------------------------------------------------------|---------|---------
+`use_api`      | `string` | Use the Windows API to collect service data instead of WMI. | `false` | no
+`where_clause` | `string` | WQL 'where' clause to use in WMI metrics query.             | `""`    | no
 
 The `where_clause` argument can be used to limit the response to the services you specify, reducing the size of the response.
 If `use_api` is enabled, 'where_clause' won't be effective.
+
+The Windows API is more performant than WMI. Set `use_api` to `true` in situations when the WMI takes too long to get the service information.
+Setting `use_api` to `true` does have a few disadvantages compared to using WMI:
+* WMI queries in `where_clause` won't work.
+* The `status` field of the service is not available. You can use the `state` property to retrieve status information. This property provides the same information, but it is formatted differently.
 
 
 ### smtp block
@@ -329,7 +334,7 @@ Replace the following:
 
 `prometheus.exporter.windows` has exports that can be consumed by the following components:
 
-- Components that consume [Targets]({{< relref "../compatibility/#targets-consumers" >}})
+- Components that consume [Targets](../../compatibility/#targets-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

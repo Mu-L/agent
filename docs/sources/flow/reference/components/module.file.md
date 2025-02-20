@@ -6,12 +6,15 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/module.file/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/module.file/
 description: Learn about module.file
-labels:
-  stage: beta
 title: module.file
 ---
 
-# module.file
+# module.file (deprecated)
+
+{{< admonition type="caution" >}}
+Starting with release v0.40, `module.string` is deprecated and is replaced by `import.string`.
+`module.string` will be removed in a future release.
+{{< /admonition >}}
 
 {{< docs/shared lookup="flow/stability/beta.md" source="agent" version="<AGENT_VERSION>" >}}
 

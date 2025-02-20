@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/pyroscope.ebpf/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/pyroscope.ebpf/
 description: Learn about pyroscope.ebpf
-labels:
-  stage: beta
 title: pyroscope.ebpf
 ---
 
@@ -56,6 +54,8 @@ values.
 | `collect_kernel_profile`  | `bool`                   | A flag to enable/disable collection of kernelspace profiles                         | true    | no       |
 | `demangle`                | `string`                 | C++ demangle mode. Available options are: `none`, `simplified`, `templates`, `full` | `none`  | no       |
 | `python_enabled`          | `bool`                   | A flag to enable/disable python profiling                                           | true    | no       |
+| `symbols_map_size`        | `int`                    | The size of eBPF symbols map                                                        | 16384   | no       |
+| `pid_map_size`            | `int`                    | The size of eBPF PID map                                                            | 2048    | no       |
 
 ## Exported fields
 
@@ -95,7 +95,7 @@ can help you pin down a profiling target.
 | `__name__`         | pyroscope metric name. Defaults to `process_cpu`.                                                                                |
 | `__container_id__` | The container ID derived from target.                                                                                            |
 
-### Targets 
+### Targets
 
 One of the following special labels _must_ be included in each target of `targets` and the label must correspond to the container or process that is profiled:
 
@@ -104,7 +104,7 @@ One of the following special labels _must_ be included in each target of `target
 * `__meta_kubernetes_pod_container_id`: The ID of the Kubernetes pod container.
 * `__process_pid__` : The process ID.
 
-Each process is then associated with a specified target from the targets list, determined by a container ID or process PID. 
+Each process is then associated with a specified target from the targets list, determined by a container ID or process PID.
 
 If a process's container ID matches a target's container ID label, the stack traces are aggregated per target based on the container ID.
 If a process's PID matches a target's process PID label, the stack traces are aggregated per target based on the process PID.
@@ -287,7 +287,7 @@ pyroscope.write "staging" {
   }
 }
 
-pyroscope.ebpf "default" {  
+pyroscope.ebpf "default" {
   forward_to   = [ pyroscope.write.staging.receiver ]
   targets      = discovery.relabel.local_containers.output
 }
@@ -298,8 +298,8 @@ pyroscope.ebpf "default" {
 
 `pyroscope.ebpf` can accept arguments from the following components:
 
-- Components that export [Targets]({{< relref "../compatibility/#targets-exporters" >}})
-- Components that export [Pyroscope `ProfilesReceiver`]({{< relref "../compatibility/#pyroscope-profilesreceiver-exporters" >}})
+- Components that export [Targets](../../compatibility/#targets-exporters)
+- Components that export [Pyroscope `ProfilesReceiver`](../../compatibility/#pyroscope-profilesreceiver-exporters)
 
 
 {{< admonition type="note" >}}

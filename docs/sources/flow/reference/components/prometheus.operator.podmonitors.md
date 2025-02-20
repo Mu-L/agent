@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.operator.podmonitors/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.operator.podmonitors/
 description: Learn about prometheus.operator.podmonitors
-labels:
-  stage: beta
 title: prometheus.operator.podmonitors
 ---
 
@@ -268,7 +266,7 @@ prometheus.operator.podmonitors "pods" {
 
 `prometheus.operator.podmonitors` can accept arguments from the following components:
 
-- Components that export [Prometheus `MetricsReceiver`]({{< relref "../compatibility/#prometheus-metricsreceiver-exporters" >}})
+- Components that export [Prometheus `MetricsReceiver`](../../compatibility/#prometheus-metricsreceiver-exporters)
 
 
 {{< admonition type="note" >}}

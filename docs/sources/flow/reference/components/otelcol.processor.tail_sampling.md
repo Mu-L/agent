@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/otelcol.processor.tail_sampling/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.processor.tail_sampling/
 description: Learn about otelcol.processor.tail_sampling
-labels:
-  stage: beta
 title: otelcol.processor.tail_sampling
 ---
 
@@ -155,7 +153,12 @@ The following arguments are supported:
 
 Name | Type | Description | Default | Required
 ---- | ---- | ----------- | ------- | --------
-`threshold_ms` | `number` | The latency threshold for sampling, in milliseconds. | | yes
+`threshold_ms` | `number` | Lower latency threshold for sampling, in milliseconds. | | yes
+`upper_threshold_ms` | `number` | Upper latency threshold for sampling, in milliseconds. | `0` | no
+
+For a trace to be sampled, its latency should be greater than `threshold_ms` and lower than or equal to `upper_threshold_ms`.
+
+An `upper_threshold_ms` of `0` will result in a policy which samples anything greater than `threshold_ms`.
 
 ### numeric_attribute block
 
@@ -163,11 +166,12 @@ The `numeric_attribute` block configures a policy of type `numeric_attribute`. T
 
 The following arguments are supported:
 
-Name | Type | Description | Default | Required
----- | ---- | ----------- | ------- | --------
-`key`       | `string` | Tag that the filter is matched against. | | yes
-`min_value` | `number` | The minimum value of the attribute to be considered a match. | | yes
-`max_value` | `number` | The maximum value of the attribute to be considered a match. | | yes
+Name | Type    | Description | Default | Required
+---- | ------- | ----------- | ------- | --------
+`key`          | `string` | Tag that the filter is matched against. | | yes
+`min_value`    | `number` | The minimum value of the attribute to be considered a match. | | yes
+`max_value`    | `number` | The maximum value of the attribute to be considered a match. | | yes
+`invert_match` | `bool`   | Indicates that values must not match against attribute values. | `false` | no
 
 ### probabilistic block
 
@@ -229,10 +233,13 @@ The following arguments are supported:
 Name | Type | Description | Default | Required
 ---- | ---- | ----------- | ------- | --------
 `min_spans` | `number` | Minimum number of spans in a trace. | | yes
+`max_spans` | `number` | Maximum number of spans in a trace. | `0` | no
+
+Set `max_spans` to `0`, if you do not want to limit the policy samples based on the maximum number of spans in a trace.
 
 ### boolean_attribute block
 
-The `boolean_attribute` block configures a policy of type `boolean_attribute`. 
+The `boolean_attribute` block configures a policy of type `boolean_attribute`.
 The policy samples based on a boolean attribute (resource and record).
 
 The following arguments are supported:
@@ -244,7 +251,7 @@ Name | Type | Description | Default | Required
 
 ### ottl_condition block
 
-The `ottl_condition` block configures a policy of type `ottl_condition`. The policy samples based on a given boolean 
+The `ottl_condition` block configures a policy of type `ottl_condition`. The policy samples based on a given boolean
 [OTTL](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/pkg/ottl) condition (span and span event).
 
 The following arguments are supported:
@@ -256,8 +263,9 @@ Name | Type | Description | Default | Required
 `spanevent`  | `list(string)` | OTTL conditions for span events. | `[]` | no
 
 The supported values for `error_mode` are:
-* `ignore`: Errors cause evaluation to continue to the next statement.
-* `propagate`: Errors cause the evaluation to be false and an error is returned.
+* `ignore`: Ignore errors returned by conditions, log them, and continue on to the next condition. This is the recommended mode.
+* `silent`: Ignore errors returned by conditions, do not log them, and continue on to the next condition.
+* `propagate`: Return the error up the pipeline. This will result in the payload being dropped from {{< param "PRODUCT_ROOT_NAME" >}}.
 
 At least one of `span` or `spanevent` should be specified. Both `span` and `spanevent` can also be specified.
 
@@ -559,11 +567,11 @@ otelcol.exporter.otlp "production" {
 
 `otelcol.processor.tail_sampling` can accept arguments from the following components:
 
-- Components that export [OpenTelemetry `otelcol.Consumer`]({{< relref "../compatibility/#opentelemetry-otelcolconsumer-exporters" >}})
+- Components that export [OpenTelemetry `otelcol.Consumer`](../../compatibility/#opentelemetry-otelcolconsumer-exporters)
 
 `otelcol.processor.tail_sampling` has exports that can be consumed by the following components:
 
-- Components that consume [OpenTelemetry `otelcol.Consumer`]({{< relref "../compatibility/#opentelemetry-otelcolconsumer-consumers" >}})
+- Components that consume [OpenTelemetry `otelcol.Consumer`](../../compatibility/#opentelemetry-otelcolconsumer-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

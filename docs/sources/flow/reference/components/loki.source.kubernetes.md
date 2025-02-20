@@ -94,7 +94,7 @@ inside a `client` block.
 [authorization]: #authorization-block
 [oauth2]: #oauth2-block
 [tls_config]: #tls_config-block
-[clustering]: #clustering-beta
+[clustering]: #clustering-block
 
 ### client block
 
@@ -143,7 +143,7 @@ Name                     | Type                | Description                    
 
 {{< docs/shared lookup="flow/reference/components/tls-config-block.md" source="agent" version="<AGENT_VERSION>" >}}
 
-### clustering (beta)
+### clustering block
 
 Name | Type | Description | Default | Required
 ---- | ---- | ----------- | ------- | --------
@@ -211,8 +211,8 @@ loki.write "local" {
 
 `loki.source.kubernetes` can accept arguments from the following components:
 
-- Components that export [Targets]({{< relref "../compatibility/#targets-exporters" >}})
-- Components that export [Loki `LogsReceiver`]({{< relref "../compatibility/#loki-logsreceiver-exporters" >}})
+- Components that export [Targets](../../compatibility/#targets-exporters)
+- Components that export [Loki `LogsReceiver`](../../compatibility/#loki-logsreceiver-exporters)
 
 
 {{< admonition type="note" >}}

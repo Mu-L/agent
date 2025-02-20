@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/prometheus.operator.servicemonitors/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.operator.servicemonitors/
 description: Learn about prometheus.operator.servicemonitors
-labels:
-  stage: beta
 title: prometheus.operator.servicemonitors
 ---
 
@@ -75,7 +73,7 @@ inside a `client` block.
 [match_expression]: #match_expression-block
 [rule]: #rule-block
 [scrape]: #scrape-block
-[clustering]: #clustering-beta
+[clustering]: #clustering-block
 
 ### client block
 
@@ -164,7 +162,7 @@ The `operator` argument must be one of the following strings:
 
 If there are multiple `match_expressions` blocks inside of a `selector` block, they are combined together with AND clauses.
 
-### clustering (beta)
+### clustering block
 
 Name | Type | Description | Default | Required
 ---- | ---- | ----------- | ------- | --------
@@ -270,7 +268,7 @@ prometheus.operator.servicemonitors "services" {
 
 `prometheus.operator.servicemonitors` can accept arguments from the following components:
 
-- Components that export [Prometheus `MetricsReceiver`]({{< relref "../compatibility/#prometheus-metricsreceiver-exporters" >}})
+- Components that export [Prometheus `MetricsReceiver`](../../compatibility/#prometheus-metricsreceiver-exporters)
 
 
 {{< admonition type="note" >}}

@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/pyroscope.write/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/pyroscope.write/
 description: Learn about pyroscope.write
-labels:
-  stage: beta
 title: pyroscope.write
 ---
 
@@ -170,7 +168,7 @@ pyroscope.scrape "default" {
 
 `pyroscope.write` has exports that can be consumed by the following components:
 
-- Components that consume [Pyroscope `ProfilesReceiver`]({{< relref "../compatibility/#pyroscope-profilesreceiver-consumers" >}})
+- Components that consume [Pyroscope `ProfilesReceiver`](../../compatibility/#pyroscope-profilesreceiver-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

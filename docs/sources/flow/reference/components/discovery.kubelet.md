@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/discovery.kubelet/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/discovery.kubelet/
 description: Learn about discovery.kubelet
-labels:
-  stage: beta
 title: discovery.kubelet
 ---
 
@@ -233,7 +231,7 @@ Replace the following:
 
 `discovery.kubelet` has exports that can be consumed by the following components:
 
-- Components that consume [Targets]({{< relref "../compatibility/#targets-consumers" >}})
+- Components that consume [Targets](../../compatibility/#targets-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

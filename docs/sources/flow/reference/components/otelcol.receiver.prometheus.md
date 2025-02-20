@@ -6,8 +6,6 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/otelcol.receiver.prometheus/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.receiver.prometheus/
 description: Learn about otelcol.receiver.prometheus
-labels:
-  stage: beta
 title: otelcol.receiver.prometheus
 ---
 
@@ -105,11 +103,11 @@ otelcol.exporter.otlp "default" {
 
 `otelcol.receiver.prometheus` can accept arguments from the following components:
 
-- Components that export [OpenTelemetry `otelcol.Consumer`]({{< relref "../compatibility/#opentelemetry-otelcolconsumer-exporters" >}})
+- Components that export [OpenTelemetry `otelcol.Consumer`](../../compatibility/#opentelemetry-otelcolconsumer-exporters)
 
 `otelcol.receiver.prometheus` has exports that can be consumed by the following components:
 
-- Components that consume [Prometheus `MetricsReceiver`]({{< relref "../compatibility/#prometheus-metricsreceiver-consumers" >}})
+- Components that consume [Prometheus `MetricsReceiver`](../../compatibility/#prometheus-metricsreceiver-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

@@ -15,7 +15,7 @@ The `prometheus.exporter.snmp` component embeds
 [`snmp_exporter`](https://github.com/prometheus/snmp_exporter). `snmp_exporter` lets you collect SNMP data and expose them as Prometheus metrics.
 
 {{< admonition type="note" >}}
-`prometheus.exporter.snmp` uses the latest configuration introduced in version 0.23 of the Prometheus `snmp_exporter`.
+`prometheus.exporter.snmp` uses the latest configuration introduced in version 0.26 of the Prometheus `snmp_exporter`.
 {{< /admonition >}}
 
 ## Usage
@@ -68,12 +68,13 @@ The following blocks are supported inside the definition of
 The `target` block defines an individual SNMP target.
 The `target` block may be specified multiple times to define multiple targets. The label of the block is required and will be used in the target's `job` label.
 
-| Name          | Type     | Description                         | Default | Required |
-| ------------- | -------- | ----------------------------------- | ------- | -------- |
-| `address`     | `string` | The address of SNMP device.         |         | yes      |
-| `module`      | `string` | SNMP module to use for polling.     | `""`    | no       |
-| `auth`        | `string` | SNMP authentication profile to use. | `""`    | no       |
-| `walk_params` | `string` | Config to use for this target.      | `""`    | no       |
+| Name           | Type     | Description                                                           | Default | Required |
+| -------------- | -------- | --------------------------------------------------------------------- | ------- | -------- |
+| `address`      | `string` | The address of SNMP device.                                           |         | yes      |
+| `module`       | `string` | SNMP module to use for polling.                                       | `""`    | no       |
+| `auth`         | `string` | SNMP authentication profile to use.                                   | `""`    | no       |
+| `walk_params`  | `string` | Config to use for this target.                                        | `""`    | no       |
+| `snmp_context` | `string` | Override the `context_name` parameter in the SNMP configuration file. | `""`    | no       |
 
 ### walk_param block
 
@@ -206,7 +207,7 @@ Replace the following:
 
 `prometheus.exporter.snmp` has exports that can be consumed by the following components:
 
-- Components that consume [Targets]({{< relref "../compatibility/#targets-consumers" >}})
+- Components that consume [Targets](../../compatibility/#targets-consumers)
 
 {{< admonition type="note" >}}
 Connecting some components may not be sensible or components may require further configuration to make the connection work correctly.

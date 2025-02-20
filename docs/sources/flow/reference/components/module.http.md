@@ -6,12 +6,15 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/module.http/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/module.http/
 description: Learn about module.http
-labels:
-  stage: beta
 title: module.http
 ---
 
-# module.http
+# module.http (deprecated)
+
+{{< admonition type="caution" >}}
+Starting with release v0.40, `module.http` is deprecated and is replaced by `import.http`.
+`module.http` will be removed in a future release.
+{{< /admonition >}}
 
 {{< docs/shared lookup="flow/stability/beta.md" source="agent" version="<AGENT_VERSION>" >}}
 

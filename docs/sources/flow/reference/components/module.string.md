@@ -6,12 +6,15 @@ aliases:
 - /docs/grafana-cloud/send-data/agent/flow/reference/components/module.string/
 canonical: https://grafana.com/docs/agent/latest/flow/reference/components/module.string/
 description: Learn about module.string
-labels:
-  stage: beta
 title: module.string
 ---
 
-# module.string
+# module.string (deprecated)
+
+{{< admonition type="caution" >}}
+Starting with release v0.40, `module.string` is deprecated and is replaced by `import.string`.
+`module.string` will be removed in a future release.
+{{< /admonition >}}
 
 {{< docs/shared lookup="flow/stability/beta.md" source="agent" version="<AGENT_VERSION>" >}}
 
